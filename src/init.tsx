@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled from 'styled-components';
+import 'normalize.css';
+import App from './App';
 
 const Button = styled.button`
   border-radius: 3px;
@@ -13,7 +15,7 @@ const Button = styled.button`
 
 ReactDom.render(
   (
-      <Button>Get rid of food addiction</Button>
+      <App />
   ),
   document.getElementById('root')
 );
