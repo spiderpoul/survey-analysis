@@ -1,13 +1,23 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
+import { PollChoice, PollInput } from './components/';
 
-export default class App extends React.Component<any, any> {
+interface AppProps {
+
+}
+
+interface AppState {
+
+}
+
+export default class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <Container>
         <Form>
-          <Button>Get rid of food addiction</Button>
+          {/* <PollChoice question={'What kind of bear the best?'} choices={['Black bear', 'White bear']}  /> */}
+          <PollInput question={'What kind of bear the best?'}/>
         </Form>
       </Container>
     )
@@ -38,7 +48,7 @@ const appearFromTop = keyframes`
   100%{top: 10%; opacity: 1}
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,13 +61,4 @@ const Form = styled.form`
   background-color: white;
   animation: ${appearFromTop} 1s ease-in;
   border-radius: 15px;
-`;
-
-const Button = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0 1em;
-  background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;  
 `;
