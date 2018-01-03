@@ -12,17 +12,20 @@ interface AppState {
 }
 
 export default class App extends React.Component<AppProps, AppState> {
-  render() {
+  render() {    
     return (
       <Container>
-        <Form>
-          {/* <PollChoice question={'What kind of bear the best?'} choices={['Black bear', 'White bear']}  /> */}
-          <PollInput question={'What kind of bear the best?'}/>
-        </Form>
+        <FormContainer>
+          <PollChoice question={'What kind of bear the best?'} choices={['Black bear', 'White bear', 'Beats']}  />
+          {/* <PollInput question={'What kind of bear the best?'} /> */}
+        </FormContainer>
+        <ChatBotContainer>
+          Chat bot coming soon
+        </ChatBotContainer>
       </Container>
-    )
+    );
   }
-};
+}
 
 const backgroundChange = keyframes`
       0%{background-position: 13% 0%}
@@ -48,7 +51,7 @@ const appearFromTop = keyframes`
   100%{top: 10%; opacity: 1}
 `;
 
-const Form = styled.div`
+const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,8 +60,16 @@ const Form = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
-  height: 70%;
   background-color: white;
   animation: ${appearFromTop} 1s ease-in;
   border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 12px 0px rgba(0,0,0,0.5);
+`;
+
+const ChatBotContainer = styled.div`
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: pink;
 `;

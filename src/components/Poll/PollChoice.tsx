@@ -9,21 +9,25 @@ interface PollChoiceProps {
 }
 
 export class PollChoice extends React.Component<PollChoiceProps> {
+  private onSubmit = (e: any) => {
+    e.preventDefault();
+  }
+
   render() {
     const { question, choices } = this.props;
     const choicesElements = choices.map(choice => (
       <Button key={choice}>{choice}</Button>
-    ));
+    ));  
     return (
-      <Form>
+      <Form onSubmit={this.onSubmit}>
         <Question>{question}</Question>
         <ChoicesContainer>
           {choicesElements}
         </ChoicesContainer>
       </Form>
-    )
+    );
   }
-};
+}
 
 const Button = styled.button`
   border-radius: 3px;
@@ -32,6 +36,7 @@ const Button = styled.button`
   background: transparent;
   color: palevioletred;
   border: 2px solid palevioletred;
+  margin-bottom: 20px;
 `;
 
 const ChoicesContainer = styled.div`

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled from 'styled-components';
 import 'normalize.css';
+import './less/globals.less';
 import App from './App';
 
 const Button = styled.button`

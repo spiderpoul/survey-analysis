@@ -9,7 +9,12 @@
       "jsx": "react",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "lib": ["es2015", "es2017", "dom"]
+      "lib": ["es2015", "es2017", "dom"], 
+      "plugins": [
+        {
+          "name": "typescript-styled-plugin"
+        }
+      ]   
   },
   "exclude": [
     "node_modules"
