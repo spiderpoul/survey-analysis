@@ -5,18 +5,47 @@ import 'normalize.css';
 import './less/globals.less';
 import App from './App';
 
-const Button = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0 1em;
-  background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-`;
+export type Data = TextData | ChoiceData;
+
+export interface TextData {
+  type: PollType.text;
+  question: string;
+}
+
+export interface ChoiceData {
+  type: PollType.choice;
+  question: string;
+  choices: string[];
+}
+
+export enum PollType {
+  text = 'text',
+  choice = 'choice'
+}
+
+const data: Data[] = [
+  {
+    type: PollType.text,
+    question: 'what kind of bear the best?'
+  },
+  {
+    type: PollType.choice,
+    question: 'what kind of bear the best?',
+    choices: [
+      'Black bear',
+      'White bear',
+      'Beets'
+    ]
+  },
+  {
+    type: PollType.text,
+    question: 'Another question'
+  }
+];
 
 ReactDom.render(
   (
-      <App />
+      <App data={data}/>
   ),
   document.getElementById('root')
 );

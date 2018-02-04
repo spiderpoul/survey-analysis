@@ -3,11 +3,12 @@ import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { Form, Question } from '../../common-components/';
 
-interface PollInputProps {
+export interface PollInputProps {
   question: string;
+  onSubmit: (e: any) => void;
 }
 
-interface PollInputState {
+export interface PollInputState {
   answer: string;
 }
 
@@ -19,10 +20,6 @@ export class PollInput extends React.Component<PollInputProps, PollInputState> {
     };
   }
 
-  private onSubmit = (e: any) => {
-    e.preventDefault();
-  }
-
   private onInputChange = (e: any) => {
     this.setState({ answer: e.currentTarget.value });
   }
@@ -30,17 +27,21 @@ export class PollInput extends React.Component<PollInputProps, PollInputState> {
   render() {
     const { question } = this.props;
     return (
-      <Form onSubmit={this.onSubmit}>
+      <FormText onSubmit={this.props.onSubmit}>
         <Question>{question}</Question>
         <TextArea
           value={this.state.answer}
           onChange={this.onInputChange}
         />
         <Button>Next</Button>
-      </Form>
+      </FormText>
     );
   }
 }
+
+const FormText = Form.extend`
+  width: 50vw;
+`;
 
 const TextArea = styled.textarea`
   width: 95%;
@@ -75,9 +76,8 @@ const Button = styled.button`
   transition: 0.5s all ease-in-out;
   outline: none;
 
-  &:hover {   
-    transform: scale(1.2) skew(5deg,-5deg);
-    box-shadow: 0 0 5px 0 palevioletred;
+  &:hover {
+    border-radius: 12px;      
   }  
 `;
 

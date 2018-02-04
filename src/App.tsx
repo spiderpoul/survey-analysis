@@ -2,23 +2,79 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { PollChoice, PollInput } from './components/';
+import { Controller } from './Controller';
+import { Data, PollType } from './init';
 
-interface AppProps {
-
+export interface History {
+  stepId: number;
+  question: number;
+  answer: string;
 }
 
-interface AppState {
+export interface AppProps {
+  data: Data[];
+}
 
+export interface AppState {
+  history: History[];
+  currentQuestion: number;
 }
 
 export default class App extends React.Component<AppProps, AppState> {
-  render() {    
+  private controller: Controller;
+
+  constructor(props: AppProps) {
+    super(props);
+    this.state = {
+      currentQuestion: 0,
+      history: []
+    };
+
+    this.controller = new Controller(
+      () => this.state,
+      newState => this.setState(prevState => ({
+        ...prevState,
+        ...newState
+      }))
+    );
+
+  }
+
+  render() {
+
+    const pollChoice = (question: string, choices: string[]) => (
+      <FormContainer>
+        <PollChoice
+          question={question}
+          choices={choices}
+          onSubmit={this.controller.onSubmitForm}
+        />
+      </FormContainer>
+    );
+
+    const pollText = (question: string) => (
+      <FormContainer>
+        <PollInput
+          question={question}
+          onSubmit={this.controller.onSubmitForm}
+        />
+      </FormContainer>
+    );
+
+    const chainQuetions = this.props.data.map(item => {
+      switch (item.type) {
+        case PollType.choice:
+          return pollChoice(item.question, item.choices);
+        case PollType.text:
+          return pollText(item.question);
+        default:
+          return pollText('');
+      }
+    });
+
     return (
       <Container>
-        <FormContainer>
-          <PollChoice question={'What kind of bear the best?'} choices={['Black bear', 'White bear', 'Beats']}  />
-          {/* <PollInput question={'What kind of bear the best?'} /> */}
-        </FormContainer>
+        {chainQuetions[this.state.currentQuestion]}
         <ChatBotContainer>
           Chat bot coming soon
         </ChatBotContainer>
@@ -28,9 +84,9 @@ export default class App extends React.Component<AppProps, AppState> {
 }
 
 const backgroundChange = keyframes`
-      0%{background-position: 13% 0%}
-      50%{background-position: 88% 100%}
-      100%{background-position: 13% 0%}
+      0%{background - position: 13% 0%}
+      50%{background - position: 88% 100%}
+      100%{background - position: 13% 0%}
 `;
 
 const Container = styled.div`
@@ -59,12 +115,12 @@ const FormContainer = styled.div`
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
   background-color: white;
   animation: ${appearFromTop} 1s ease-in;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 2px 12px 0px rgba(0,0,0,0.5);
+  transition: 0.5s all ease-in-out;
 `;
 
 const ChatBotContainer = styled.div`
