@@ -1,23 +1,30 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { Form, Question } from '../../common-components/';
+import { Form, QuestionText } from '../../common-components/';
+import { History } from '../../App';
+import { QuestionType } from '../../init';
 
-export interface PollChoiceProps {
+export interface QuestionChoiceProps {
+  step: number;
   question: string;
   choices: string[];
-  onSubmit: (e: any) => void;
+  onSubmit: (history: History) => (e: any) => void;
 }
 
-export class PollChoice extends React.Component<PollChoiceProps> {  
+export class QuestionChoice extends React.Component<QuestionChoiceProps> {
   render() {
-    const { question, choices } = this.props;
+    const { question, choices, step } = this.props;
     const choicesElements = choices.map(choice => (
-      <Button key={choice}>{choice}</Button>
-    ));  
+      <Button
+        key={choice}
+        onClick={this.props.onSubmit({ step, answer: choice, type: QuestionType.choice })}
+      >{choice}
+      </Button>
+    ));
     return (
-      <Form onSubmit={this.props.onSubmit}>
-        <Question>{question}</Question>
+      <Form onSubmit={e => e.preventDefault()}>
+        <QuestionText>{question}</QuestionText>
         <ChoicesContainer>
           {choicesElements}
         </ChoicesContainer>

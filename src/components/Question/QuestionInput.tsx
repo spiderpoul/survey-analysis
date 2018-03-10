@@ -1,19 +1,22 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { Form, Question } from '../../common-components/';
+import { Form, QuestionText } from '../../common-components/';
+import { History } from '../../App';
+import { QuestionType } from '../../init';
 
-export interface PollInputProps {
+export interface QuestionInputProps {
+  step: number;
   question: string;
-  onSubmit: (e: any) => void;
+  onSubmit: (history: History) => (e: any) => void;
 }
 
-export interface PollInputState {
+export interface QuestionInputState {
   answer: string;
 }
 
-export class PollInput extends React.Component<PollInputProps, PollInputState> {  
-  constructor(props: PollInputProps) {
+export class QuestionInput extends React.Component<QuestionInputProps, QuestionInputState> {
+  constructor(props: QuestionInputProps) {
     super(props);
     this.state = {
       answer: ''
@@ -25,12 +28,13 @@ export class PollInput extends React.Component<PollInputProps, PollInputState> {
   }
 
   render() {
-    const { question } = this.props;
+    const { question, step } = this.props;
+    const { answer } = this.state;
     return (
-      <FormText onSubmit={this.props.onSubmit}>
-        <Question>{question}</Question>
+      <FormText onSubmit={this.props.onSubmit({ answer, step, type: QuestionType.text })}>
+        <QuestionText>{question}</QuestionText>
         <TextArea
-          value={this.state.answer}
+          value={answer}
           onChange={this.onInputChange}
         />
         <Button>Next</Button>
