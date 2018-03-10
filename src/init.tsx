@@ -8,28 +8,28 @@ import App from './App';
 export type Data = TextData | ChoiceData;
 
 export interface TextData {
-  type: PollType.text;
+  type: QuestionType.text;
   question: string;
 }
 
 export interface ChoiceData {
-  type: PollType.choice;
+  type: QuestionType.choice;
   question: string;
-  choices: string[];
+  choices: string[];  
 }
 
-export enum PollType {
+export enum QuestionType {
   text = 'text',
   choice = 'choice'
 }
 
 const data: Data[] = [
   {
-    type: PollType.text,
+    type: QuestionType.text,
     question: 'what kind of bear the best?'
   },
   {
-    type: PollType.choice,
+    type: QuestionType.choice,
     question: 'what kind of bear the best?',
     choices: [
       'Black bear',
@@ -38,14 +38,14 @@ const data: Data[] = [
     ]
   },
   {
-    type: PollType.text,
+    type: QuestionType.text,
     question: 'Another question'
   }
 ];
 
 ReactDom.render(
   (
-      <App data={data}/>
+    <App data={data} />
   ),
   document.getElementById('root')
 );

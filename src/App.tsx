@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { PollChoice, PollInput } from './components/';
+import { QuestionChoice, QuestionInput } from './components/';
 import { Controller } from './Controller';
-import { Data, PollType } from './init';
+import { Data, QuestionType } from './init';
 
 export interface History {
-  stepId: number;
-  question: number;
-  answer: string;
+  step: number;
+  type: QuestionType;
+  answer: string | number;
 }
 
 export interface AppProps {
@@ -17,16 +17,17 @@ export interface AppProps {
 
 export interface AppState {
   history: History[];
-  currentQuestion: number;
+  questionCounter: number;
 }
 
 export default class App extends React.Component<AppProps, AppState> {
   private controller: Controller;
+  private chainQuetions: JSX.Element[];
 
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      currentQuestion: 0,
+      questionCounter: 0,
       history: []
     };
 
@@ -38,43 +39,53 @@ export default class App extends React.Component<AppProps, AppState> {
       }))
     );
 
-  }
-
-  render() {
-
-    const pollChoice = (question: string, choices: string[]) => (
-      <FormContainer>
-        <PollChoice
-          question={question}
-          choices={choices}
-          onSubmit={this.controller.onSubmitForm}
-        />
-      </FormContainer>
+    const questionChoice = (step: number, question: string, choices: string[]) => (
+      <QuestionChoice
+        step={step}
+        question={question}
+        choices={choices}
+        onSubmit={this.controller.onSubmitForm}
+      />
     );
 
-    const pollText = (question: string) => (
-      <FormContainer>
-        <PollInput
-          question={question}
-          onSubmit={this.controller.onSubmitForm}
-        />
-      </FormContainer>
+    const questionText = (step: number, question: string) => (
+      <QuestionInput
+        step={step}
+        question={question}
+        onSubmit={this.controller.onSubmitForm}
+      />
     );
 
-    const chainQuetions = this.props.data.map(item => {
+    this.chainQuetions = this.props.data.map((item, index) => {
       switch (item.type) {
-        case PollType.choice:
-          return pollChoice(item.question, item.choices);
-        case PollType.text:
-          return pollText(item.question);
+        case QuestionType.choice:
+          return questionChoice(index, item.question, item.choices);
+        case QuestionType.text:
+          return questionText(index, item.question);
         default:
-          return pollText('');
+          return questionText(index, '');
       }
     });
 
+  }
+
+  private getNextQuestion = (counter: number, length: number) => {
+    if (counter < length) {
+      return this.chainQuetions[counter];
+    } else {
+      return "processing data...";
+    }
+  }
+
+  render() {
+    const { questionCounter, history } = this.state;
+    const { data } = this.props;
+
     return (
       <Container>
-        {chainQuetions[this.state.currentQuestion]}
+        <FormContainer>
+          {this.getNextQuestion(questionCounter, data.length)}
+        </FormContainer>
         <ChatBotContainer>
           Chat bot coming soon
         </ChatBotContainer>
@@ -82,6 +93,8 @@ export default class App extends React.Component<AppProps, AppState> {
     );
   }
 }
+
+
 
 const backgroundChange = keyframes`
       0%{background - position: 13% 0%}
