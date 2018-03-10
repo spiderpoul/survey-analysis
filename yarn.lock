@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@emmetio/extract-abbreviation@^0.1.4":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@emmetio/extract-abbreviation/-/extract-abbreviation-0.1.6.tgz#e4a9856c1057f0aff7d443b8536477c243abe28c"
+
 "@types/node@*":
   version "8.5.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
@@ -2508,6 +2512,10 @@ json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
+jsonc-parser@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-1.0.3.tgz#1d53d7160e401a783dbceabaad82473f80e6ad7e"
+
 jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
@@ -4716,17 +4724,18 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript-styled-plugin@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/typescript-styled-plugin/-/typescript-styled-plugin-0.2.2.tgz#155b17df98d88b595a1e03cc859a545df840c634"
+typescript-styled-plugin@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/typescript-styled-plugin/-/typescript-styled-plugin-0.6.0.tgz#ede4826907d88b84dbdf6ec0052ce862f5d3bd72"
   dependencies:
-    typescript-template-language-service-decorator "^1.0.3"
-    vscode-css-languageservice "^2.1.10"
-    vscode-languageserver-types "^3.4.0"
+    typescript-template-language-service-decorator "^1.2.0"
+    vscode-css-languageservice "^3.0.5"
+    vscode-emmet-helper "1.1.36"
+    vscode-languageserver-types "^3.6.0-next.1"
 
-typescript-template-language-service-decorator@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/typescript-template-language-service-decorator/-/typescript-template-language-service-decorator-1.0.3.tgz#d3f28393d3dc0b21d4e969feefd8a73af7ca2375"
+typescript-template-language-service-decorator@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/typescript-template-language-service-decorator/-/typescript-template-language-service-decorator-1.2.0.tgz#6d5b20b2b0f394a055390d901a4c5f273e3754ab"
 
 typescript@2.6.2:
   version "2.6.2"
@@ -4944,20 +4953,28 @@ vrsource-tslint-rules@^5.1.0:
   dependencies:
     tslint "~5.8.0"
 
-vscode-css-languageservice@^2.1.10:
-  version "2.1.11"
-  resolved "https://registry.yarnpkg.com/vscode-css-languageservice/-/vscode-css-languageservice-2.1.11.tgz#051ad9681d50ceee5f83a20142c8c659a8011ede"
+vscode-css-languageservice@^3.0.5:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/vscode-css-languageservice/-/vscode-css-languageservice-3.0.8.tgz#dc27a2f6eefd191bc603be6b9c0a59232a4c2b9f"
   dependencies:
-    vscode-languageserver-types "^3.4.0"
-    vscode-nls "^2.0.1"
+    vscode-languageserver-types "^3.6.1"
+    vscode-nls "^3.2.1"
 
-vscode-languageserver-types@^3.4.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.5.0.tgz#e48d79962f0b8e02de955e3f524908e2b19c0374"
+vscode-emmet-helper@1.1.36:
+  version "1.1.36"
+  resolved "https://registry.yarnpkg.com/vscode-emmet-helper/-/vscode-emmet-helper-1.1.36.tgz#537cbf91041a3d426f6f24dd9834550a26e61685"
+  dependencies:
+    "@emmetio/extract-abbreviation" "^0.1.4"
+    jsonc-parser "^1.0.0"
+    vscode-languageserver-types "^3.6.0-next.1"
 
-vscode-nls@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/vscode-nls/-/vscode-nls-2.0.2.tgz#808522380844b8ad153499af5c3b03921aea02da"
+vscode-languageserver-types@^3.6.0-next.1, vscode-languageserver-types@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.6.1.tgz#4bc06a48dff653495f12f94b8b1e228988a1748d"
+
+vscode-nls@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/vscode-nls/-/vscode-nls-3.2.1.tgz#b1f3e04e8a94a715d5a7bcbc8339c51e6d74ca51"
 
 watchpack@^1.4.0:
   version "1.4.0"
