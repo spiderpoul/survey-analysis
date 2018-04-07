@@ -1,2 +1,2 @@
 # food-addiction-analysis
-Simple survey forms for self-analysis
+Simple survey forms

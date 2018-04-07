@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { Form, QuestionText } from '../../common-components/';
+import { Form, QuestionText, ButtonNext } from '../../common-components/';
 import { History } from '../../App';
-import { QuestionType } from '../../init';
+import { QuestionType } from '../../data';
 
 export interface QuestionInputProps {
   step: number;
@@ -37,7 +37,7 @@ export class QuestionInput extends React.Component<QuestionInputProps, QuestionI
           value={answer}
           onChange={this.onInputChange}
         />
-        <Button>Next</Button>
+        <ButtonNext>Next</ButtonNext>
       </FormText>
     );
   }
@@ -69,20 +69,6 @@ const TextArea = styled.textarea`
 //       100%{transform: rotateX(360deg);}
 // `;
 
-const Button = styled.button`
-  border-radius: 3px;
-  padding: 0.25em 1em;
-  margin: 0 1em;
-  background: rgba(255,255,255,0);
-  color: palevioletred;
-  border: 2px solid palevioletred;  
-  cursor: pointer;
-  transition: 0.5s all ease-in-out;
-  outline: none;
 
-  &:hover {
-    border-radius: 12px;      
-  }  
-`;
 
 

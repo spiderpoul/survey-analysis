@@ -7,11 +7,15 @@ const handleInputChange: Reducer<any> = e => s => ({
   ...s
 });
 
-const onSubmitForm: ReducerCurr<History, any> = historyItem => e => s => ({
+const onSubmitForm: ReducerCurr<History, any> = historyItem => e => s => {
+  e.preventDefault();
+  
+  return {
   ...s,
   questionCounter: s.questionCounter + 1,
   history: { ...s.history, historyItem }
-});
+  };
+};
 
 
 export class Controller {

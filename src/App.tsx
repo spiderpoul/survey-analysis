@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { QuestionChoice, QuestionInput } from './components/';
+import { QuestionChoice, QuestionInput, QuestionInfo } from './components/';
 import { Controller } from './Controller';
-import { Data, QuestionType } from './init';
+import { Data, QuestionType } from './data';
 
 export interface History {
   step: number;
   type: QuestionType;
-  answer: string | number;
+  answer?: string | number;
 }
 
 export interface AppProps {
@@ -56,12 +56,23 @@ export default class App extends React.Component<AppProps, AppState> {
       />
     );
 
+    const infoBlock = (step: number, header: string, info: string) => (
+      <QuestionInfo
+        step={step}
+        header={header}
+        info={info}
+        onSubmit={this.controller.onSubmitForm}
+      />
+    );
+
     this.chainQuetions = this.props.data.map((item, index) => {
       switch (item.type) {
         case QuestionType.choice:
           return questionChoice(index, item.question, item.choices);
         case QuestionType.text:
           return questionText(index, item.question);
+        case QuestionType.info:
+          return infoBlock(index, item.header, item.info);
         default:
           return questionText(index, '');
       }

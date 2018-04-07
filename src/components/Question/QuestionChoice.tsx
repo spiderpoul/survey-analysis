@@ -3,7 +3,7 @@ import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { Form, QuestionText } from '../../common-components/';
 import { History } from '../../App';
-import { QuestionType } from '../../init';
+import { QuestionType } from '../../data';
 
 export interface QuestionChoiceProps {
   step: number;
