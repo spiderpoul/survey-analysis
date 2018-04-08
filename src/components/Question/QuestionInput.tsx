@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-import { Form, QuestionText, ButtonNext } from '../../common-components/';
+import { FormText, QuestionText, ButtonNext } from '../../common-components/';
 import { History } from '../../App';
 import { QuestionType } from '../../data';
 
 export interface QuestionInputProps {
   step: number;
   question: string;
+  buttonText?: string;
   onSubmit: (history: History) => (e: any) => void;
 }
 
@@ -28,7 +29,7 @@ export class QuestionInput extends React.Component<QuestionInputProps, QuestionI
   }
 
   render() {
-    const { question, step } = this.props;
+    const { question, step, buttonText } = this.props;
     const { answer } = this.state;
     return (
       <FormText onSubmit={this.props.onSubmit({ answer, step, type: QuestionType.text })}>
@@ -37,15 +38,11 @@ export class QuestionInput extends React.Component<QuestionInputProps, QuestionI
           value={answer}
           onChange={this.onInputChange}
         />
-        <ButtonNext>Next</ButtonNext>
+        <ButtonNext>{buttonText ? buttonText : 'Next'}</ButtonNext>
       </FormText>
     );
   }
 }
-
-const FormText = Form.extend`
-  width: 50vw;
-`;
 
 const TextArea = styled.textarea`
   width: 95%;

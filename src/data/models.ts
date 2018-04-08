@@ -3,12 +3,14 @@ export type Data = TextData | ChoiceData | InfoData;
 export interface TextData {
   type: QuestionType.text;
   question: string;
+  buttonText?: string;
 }
 
 export interface InfoData {
   type: QuestionType.info;
   header: string;
   info: string;
+  buttonText?: string;
 }
 
 export interface ChoiceData {
@@ -20,5 +22,5 @@ export interface ChoiceData {
 export enum QuestionType {
   text,
   choice,
-  info
+  info,
 }

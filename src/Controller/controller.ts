@@ -7,6 +7,11 @@ const handleInputChange: Reducer<any> = e => s => ({
   ...s
 });
 
+const startAgain: Reducer<any> = () => s => ({
+  ...s,
+  questionCounter: 0
+});
+
 const onSubmitForm: ReducerCurr<History, any> = historyItem => e => s => {
   e.preventDefault();
   
@@ -29,7 +34,7 @@ export class Controller {
     this.onUpdate(newState);
   }
 
-  private makeMethod<TParam>(makeReducer: Reducer<TParam>, name: string): ((param: TParam) => void) {
+  private makeMethod<TParam>(makeReducer: Reducer<TParam>, name: string): ((param?: TParam) => void) {
     return (param: TParam) => {
       const reducer = makeReducer(param);
       console.log(name);
@@ -46,4 +51,5 @@ export class Controller {
   }
 
   public onSubmitForm = this.makeMethodCurr(onSubmitForm, onSubmitForm.name);
+  public startAgain = this.makeMethod(startAgain, startAgain.name);
 }

@@ -13,6 +13,7 @@ export interface History {
 
 export interface AppProps {
   data: Data[];
+  title: string;
 }
 
 export interface AppState {
@@ -48,19 +49,21 @@ export default class App extends React.Component<AppProps, AppState> {
       />
     );
 
-    const questionText = (step: number, question: string) => (
+    const questionText = (step: number, question: string, buttonText: string) => (
       <QuestionInput
         step={step}
         question={question}
+        buttonText={buttonText}
         onSubmit={this.controller.onSubmitForm}
       />
     );
 
-    const infoBlock = (step: number, header: string, info: string) => (
+    const infoBlock = (step: number, header: string, info: string, buttonText: string) => (
       <QuestionInfo
         step={step}
         header={header}
         info={info}
+        buttonText={buttonText}
         onSubmit={this.controller.onSubmitForm}
       />
     );
@@ -70,11 +73,11 @@ export default class App extends React.Component<AppProps, AppState> {
         case QuestionType.choice:
           return questionChoice(index, item.question, item.choices);
         case QuestionType.text:
-          return questionText(index, item.question);
+          return questionText(index, item.question, item.buttonText);
         case QuestionType.info:
-          return infoBlock(index, item.header, item.info);
+          return infoBlock(index, item.header, item.info, item.buttonText);
         default:
-          return questionText(index, '');
+          return questionText(index, '', '');
       }
     });
 
@@ -84,8 +87,13 @@ export default class App extends React.Component<AppProps, AppState> {
     if (counter < length) {
       return this.chainQuetions[counter];
     } else {
-      return "processing data...";
+      this.controller.startAgain();
+      return this.chainQuetions[0];
     }
+  }
+
+  public componentDidMount() {
+    document.title = this.props.title;
   }
 
   render() {
@@ -97,9 +105,9 @@ export default class App extends React.Component<AppProps, AppState> {
         <FormContainer>
           {this.getNextQuestion(questionCounter, data.length)}
         </FormContainer>
-        <ChatBotContainer>
+        {/* <ChatBotContainer>
           Chat bot coming soon
-        </ChatBotContainer>
+        </ChatBotContainer> */}
       </Container>
     );
   }
@@ -108,9 +116,9 @@ export default class App extends React.Component<AppProps, AppState> {
 
 
 const backgroundChange = keyframes`
-      0%{background - position: 13% 0%}
-      50%{background - position: 88% 100%}
-      100%{background - position: 13% 0%}
+      0%{background-position: 13% 0%}
+      50%{background-position: 88% 100%}
+      100%{background-position: 13% 0%}
 `;
 
 const Container = styled.div`
